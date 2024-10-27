@@ -1,0 +1,32 @@
+---
+import BaseLayout from './BaseLayout.astro'
+
+type Props = {
+	frontmatter: {
+		index: number
+		title: string
+		pubDate: string
+		author: string
+	}
+}
+
+const { frontmatter } = Astro.props
+---
+
+<BaseLayout pageTitle={`Post-${frontmatter.index}`}>
+	<button class='back-btn'>Go back</button>
+	<p>Published on: {frontmatter.pubDate.toString().slice(0, 10)}</p>
+	<p>Written by {frontmatter.author}</p>
+	<slot />
+	<script>
+		document.querySelector('.back-btn')?.addEventListener('click', () => {
+			history.back()
+		})
+	</script>
+
+	<style>
+		.goBack-link {
+			cursor: pointer;
+		}
+	</style>
+</BaseLayout>
